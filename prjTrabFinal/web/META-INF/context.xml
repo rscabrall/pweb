@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/prjTrabFinal">
+    <Resource name="jdbc/RAM_Con" auth="Container"
+          type="javax.sql.DataSource" driverClassName="net.sourceforge.jtds.jdbc.Driver"
+          url="jdbc:jtds:sqlserver://localhost:1433;databaseName=trabPWeb"
+          username="pweb" password="pweb123" maxActive="20" maxIdle="10" maxWait="-1"/>
+</Context>
