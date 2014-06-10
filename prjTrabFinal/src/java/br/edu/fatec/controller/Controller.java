@@ -66,7 +66,7 @@ public class Controller extends HttpServlet {
          String classe = request.getParameter("classe");
          //Pegar do form
         
-        //System.out.println("###############################Passou na Servlet");
+        System.out.println("###############################Passou na Servlet");
         String pacote = "br.edu.fatec.controller.";
         String nomeClasse = pacote + classe;
         
@@ -99,7 +99,28 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+        String classe = request.getParameter("classe");
+        //Pegar do form
+        
+        System.out.println("###############################Passou na Servlet");
+        String pacote = "br.edu.fatec.controller.";
+        String nomeClasse = pacote + classe;
+        
+        try {
+            Class cl;            
+            cl = Class.forName(nomeClasse);            
+            AbstractLogica obj = (AbstractLogica) cl.newInstance();
+            System.out.println("###################Servlet -> passou");            
+            obj.executa(request, response);            
+            
+                        
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }                                      
     }
 
     /**

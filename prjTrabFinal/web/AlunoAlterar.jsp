@@ -30,14 +30,12 @@
         <c:choose>
             <c:when test='${rsAluno.rowCount>0}'>
                 <c:forEach var="a" items="${rsAluno.rows}">
-                    <form method="POST" action="Controller">
-            
-                        <table >
-
+                    <form method="post" action="Controller">
+                        <table >                            
                             <tbody>
                                 <tr>
                                     <td>Id Aluno: </td>
-                                    <td><input type="text" name="Id" value="${a.IdAluno}" /></td>
+                                    <td><input type="text" readonly="" name="Id" value="${a.IdAluno}" /></td>
                                 </tr>
                                  
                                 <tr>
@@ -68,13 +66,13 @@
                                     <td>Curso: </td>
                                     <td><select id="curso" name="curso">                            
                                                 <option id="-1">[Selecione]</option>    
-                                                <c:forEach var="f" items="${rs.rows}">
-                                                    <c:choose>
-                                                        <!--Colocar rsAluno numa variavel-->
-                                                        <c:when test='${rsAluno.IdCidade == f.IdCidade}'>
-                                                            <option selected="" id="${f.IdCidade}">${f.Nome}</option>
+                                                <c:forEach var="c" items="${rs.rows}">                                                    
+                                                    <c:choose>                                                        
+                                                        <c:when test='${a.IdCurso eq c.IdCurso}'>
+                                                            <option selected value="${c.IdCurso}">${c.Nome}</option>
+                                                            
                                                         </c:when>
-                                                            <c:otherwise><option id="${f.IdCidade}">${f.Nome}</option></c:otherwise>
+                                                            <c:otherwise><option value="${c.IdCurso}">${c.Nome}</option></c:otherwise>
                                                     </c:choose>    
                                                                                                                             
                                                 </c:forEach>
@@ -86,8 +84,8 @@
                         </table>
                         <br/>
                         <input type="hidden" name="classe" value="AlunoLogica" />
-                        <input type="hidden" name="metodo" value="Alterar" />
-                        <input type="submit" value="Cadastrar" name="Alterar" />
+                        <input type="hidden" name="metodo" value="alterar" />
+                        <input type="submit" value="Alterar" name="Alterar" />
                     </form >
                     
                 </c:forEach>
