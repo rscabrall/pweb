@@ -118,50 +118,57 @@ public class AlunoLogica extends AbstractLogica{
         }else{
             RequestDispatcher rd =
                 req.getRequestDispatcher("AlunoConsulta.jsp");
-        
-            int id = Integer.parseInt(req.getParameter("Id"));
-            String ra = req.getParameter("RA");
-            String rg = req.getParameter("RG");
-            String cpf = req.getParameter("CPF");
-            String nome = req.getParameter("Nome");
-            String ender = req.getParameter("Endereco");
-            String data = req.getParameter("DtNasc");
-            int curso = Integer.parseInt(req.getParameter("curso"));
-
-            Aluno alu = new Aluno(curso, id, nome);
-            alu.setRA(ra);
-            alu.setRG(rg);
-            alu.setCPF(cpf);
-            alu.setEndereco(ender);
-            alu.setDtNasc(data);
-                
-            if( metodo.equals("inserir") ){
-                
+                                                    
+            if( metodo.equals("excluir") ){
+                System.out.println("###################Logica -> Excluir");
+                int id = Integer.parseInt(req.getParameter("valor"));
                 try {                    
-                    dao.inserir(alu);
-                    rd.forward(req, resp);
-                    JOptionPane.showMessageDialog(null, "Inserção realizada com sucesso.", "Inserir", JOptionPane.INFORMATION_MESSAGE);
+                    dao.excluir(id);                        
+                    //JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso.", "Excluir", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
-                    Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);                    
-                    JOptionPane.showMessageDialog(null, "Erro: " + ex, "Inserir", JOptionPane.ERROR_MESSAGE);
-                } catch (ServletException ex) {
                     Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);
+                    //JOptionPane.showMessageDialog(null, "Erro: " + ex, "Excluir", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }else{
-                if( metodo.equals("excluir") ){
-                    try {
-                        dao.excluir(id);                        
-                        JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso.", "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                String ra = req.getParameter("RA");            
+                String rg = req.getParameter("RG");            
+                String cpf = req.getParameter("CPF");           
+                String nome = req.getParameter("Nome");            
+                String ender = req.getParameter("Endereco");            
+                String data = req.getParameter("DtNasc");            
+                int curso = Integer.parseInt(req.getParameter("curso"));
+
+                Aluno alu = new Aluno(curso, nome);
+                //alu.setId(id);
+                alu.setRA(ra);
+                alu.setRG(rg);
+                alu.setCPF(cpf);
+                alu.setEndereco(ender);
+                alu.setDtNasc(data);
+                System.out.println("###################Logica -> Atribui atributos - FIM");
+                if( metodo.equals("inserir") ){
+                    
+                    System.out.println("###################Logica -> Inserir");
+                    try {                    
+                        dao.inserir(alu);
+                        rd.forward(req, resp);
+                        //JOptionPane.showMessageDialog(null, "Inserção realizada com sucesso.", "Inserir", JOptionPane.INFORMATION_MESSAGE);
                     } catch (SQLException ex) {
+                        Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);                    
+                        JOptionPane.showMessageDialog(null, "Erro: " + ex, "Inserir", JOptionPane.ERROR_MESSAGE);
+                    } catch (ServletException ex) {
                         Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(null, "Erro: " + ex, "Excluir", JOptionPane.ERROR_MESSAGE);
+                    } catch (IOException ex) {
+                        Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     System.out.println("###################Logica -> Alterar");
+                    int id = Integer.parseInt(req.getParameter("Id"));
+                    String senha = req.getParameter("Senha");
+                    
                     try {                        
+                        alu.setId(id);
                         dao.alterar(alu);                        
                         rd.forward(req, resp);
                     } catch (SQLException ex) {

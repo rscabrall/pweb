@@ -22,9 +22,8 @@ public class Aluno {
     private String Endereco;
     private String dtNasc;
 
-    public Aluno(int IdCurso, int Id, String Nome) {
+    public Aluno(int IdCurso, String Nome) {
         this.IdCurso = IdCurso;
-        this.Id = Id;
         this.Nome = Nome;
     }
 

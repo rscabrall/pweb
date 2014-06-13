@@ -1,0 +1,40 @@
+#Cronograma HARD Trab PWEB
+
+*Legendas
+
++ -> Tem que fazer
+- -> Talvez
+
+**Banco de Dados -> Mudanças feitas:
+	Deixar com chave estrangeira para todos os Ids
+	-ADD 
+		.Tabelas: 
+			--Não precisa mais: AlunoCurso: [IdCurso, IdAluno], Data de Inicio,  Data Previsão, Data Conclusão, Status(Ativo, Cancelado, concluido)
+			FEITO -> CursoDisciplina: [IdCurso, IdDisciplina], SemestreCurso(numero inteiro), QtdHoras. 
+		.Campos
+			FEITO ->  Tabela Aluno: IdLogin_FK
+			FEITO -> Tabela AlunoDisciplina: Ano(int), Semestre(do ano e não do Curso, int)
+			FEITO -> Tabela Disciplina: IdDisciplina varchar(10);
+	-Remove:
+		.Campos
+			Tabela Curso: IdDisciplina
+			
+#Dica: Separar as páginas de cada perfil em pastas diferentes, caso não funcione deixe tudo bagunçado msm ou, para ás páginas que todos acessam, mas
+acessam de maneira diferente, usar um css para: deixar readonly quando secretario/adm visualizar cadastro do aluno, usar scriptlet para para habilitar a consulta de aluno na
+parte de consulta de dados cadastrais p/ secretario/adm. Ou em caso de cadastro: nó não mostrar o botao de salvar
+
+*********Sexta
+FEITO +Aplicar as mudanças no banco
+FEITO +Programar todas as funcoes básicas para aluno: Incluir, Alterar(feito), Consultar(semifeito, tenho que adaptar p/ um aluno específico) e Excluir;
+FEITO +Criar mensagem de confirmação para o Excluir, caso tome muito tempo, pule esta parte;
+FEITO +Separar em arquivos diferentes, todos os códigos, javascript e css, padrões;
+FEITO +Criar script para formatar, data, cpf, rg;
+-Aplicar as funcoes básicas a outras tabelas: Disciplina, Curso(fazer depois de Disciplina) Login, Perfil(Não sei se vai precisar);
+********Sab
++Aplicar as funcoes básicas a outras tabelas:Aluno(foto, ultima coisa), Disciplina, Curso(fazer depois de Disciplina) Login(aplicar cripto), Perfil(Não sei se vai precisar)
++Criar o controle de faltas e notas da Disciplina por aluno: Selecionar curso, disciplina, ano, semestre, clica em ok e aparece todos os alunos
++Criar o menu para cada perfil.
+-Fazer a parte do login funcionar: Redirecionamento, Limitar acesso as paginas para determinados usuários, etc
+********Domingo
++Fazer a parte do login funcionar: Redirecionamento, Limitar acesso as paginas para determinados usuários, etc
+Depois disso fazer o Aluno alterar a senha do proprio login na tela Aluno Cad.

@@ -31,13 +31,13 @@
             }
             
             function confirma(id){
-                if (confirm("Comfirma a exclusão do cliente " + id + " ?")) {
-                    var campo = 'id'; 
+                if (confirm("Comfirma a exclusão do Aluno cujo Id: " + id + " ?")) {
+                    var campo = 'Id'; 
                     //window.alert(campo);
                     var valor = id;
                     var classe = "AlunoLogica";
                     var metod = "excluir";
-                    $.get('Controller', {campo:campo, valor:valor, classe:classe , metodo:metod},
+                    $.get('Controller', {Id:campo, valor:valor, classe:classe , metodo:metod},
                     function(responseText){
                         $('#result').html(responseText);
                     } );

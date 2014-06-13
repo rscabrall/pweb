@@ -14,7 +14,7 @@
     SELECT IdCurso, Nome FROM tbCurso ORDER BY Nome;
 </sql:query>
 <sql:query var="rsAluno" dataSource="jdbc/RAM_Con">
-    SELECT * FROM tbAluno WHERE IdAluno=? ORDER BY Nome;
+    SELECT *, FORMAT(DtNasc, 'dd/MM/yyyy') as DtNasc FROM tbAluno WHERE IdAluno=? ORDER BY Nome;
     <sql:param value="${param.id}"/>
 </sql:query>
   
@@ -22,6 +22,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="query/mascaras.js"></script>
         <title>Aluno - Cadastro</title>
     </head>
     <body>        
@@ -30,14 +31,26 @@
         <c:choose>
             <c:when test='${rsAluno.rowCount>0}'>
                 <c:forEach var="a" items="${rsAluno.rows}">
-                    <form method="post" action="Controller">
+                    <form name="form1" method="post" action="Controller">
                         <table >                            
                             <tbody>
                                 <tr>
                                     <td>Id Aluno: </td>
                                     <td><input type="text" readonly="" name="Id" value="${a.IdAluno}" /></td>
                                 </tr>
-                                 
+                                <tr>
+                                    <td>RA: </td>
+                                    <td><input type="text" name="RA" value="${a.RA}" /></td>
+                                </tr> 
+                                <tr>
+                                    <td>Senha: </td>
+                                    <td><input type="password" name="Senha" value=""  maxlength="10" /></td> 
+                                    <td>Máximo 10 caracteres</td> 
+                                </tr>
+                                <tr>
+                                    <td>Confirmar senha: </td>
+                                    <td><input type="password" name="Senha2" value="" onblur="validarSenha(form1.Senha, form1.Senha2, form1.Alterar );" /></td>
+                                </tr>
                                 <tr>
                                     <td>Nome: </td>
                                     <td><input type="text" name="Nome" value="${a.Nome}" /></td>
@@ -48,19 +61,15 @@
                                 </tr>
                                 <tr>
                                     <td>CPF: </td>
-                                    <td><input type="text" name="CPF" value="${a.CPF}" /></td>
-                                </tr>
-                                <tr>
-                                    <td>RA: </td>
-                                    <td><input type="text" name="RA" value="${a.RA}" /></td>
-                                </tr>
+                                    <td><input type="text" name="CPF" value="${a.CPF}" maxlength="11" onKeyPress="return Apenas_Numeros(event);" onBlur="validaCPF(this);" /></td>
+                                </tr>                                
                                 <tr>
                                     <td>Endereco: </td>
                                     <td><input type="text" name="Endereco" value="${a.Endereco}" /></td>
                                 </tr>
                                 <tr>
                                     <td>Data Nasc: </td>
-                                    <td><input type="text" name="DtNasc" value="${a.DtNasc}" /></td>
+                                    <td><input type="text" name="DtNasc" value="${a.DtNasc}" onKeyPress="formata_data(this);return Apenas_Numeros(event);" maxlength="10" /></td>
                                 </tr>
                                    <tr>
                                     <td>Curso: </td>

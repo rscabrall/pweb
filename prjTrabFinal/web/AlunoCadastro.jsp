@@ -28,11 +28,16 @@
             <table >
 
                 <tbody>
+                    <!--
                     <tr>
                         <td>Id Aluno: </td>
-                        <td><input type="text" name="Id" value="" /></td>
+                        <td><input type="text" readonly="" name="Id" value="" /></td>
                     </tr>                 
-
+                    -->
+                    <tr>
+                        <td>RA: </td>
+                        <td><input type="text" name="RA" value="" /></td>
+                    </tr>
                     <tr>
                         <td>Nome: </td>
                         <td><input type="text" name="Nome" value="" /></td>
@@ -44,11 +49,7 @@
                     <tr>
                         <td>CPF: </td>
                         <td><input type="text" name="CPF" value="" /></td>
-                    </tr>
-                    <tr>
-                        <td>RA: </td>
-                        <td><input type="text" name="RA" value="" /></td>
-                    </tr>
+                    </tr>                    
                     <tr>
                         <td>Endereco: </td>
                         <td><input type="text" name="Endereco" value="" /></td>
@@ -62,7 +63,7 @@
                         <td><select id="curso" name="curso">                            
                                     <option id="-1">[Selecione]</option>    
                                     <c:forEach var="f" items="${rs.rows}">
-                                        <option value="${f.IdCidade}">${f.Nome}</option>                                                                        
+                                        <option value="${f.IdCurso}">${f.Nome}</option>                                                                        
                                     </c:forEach>
 
                             </select>
@@ -73,7 +74,7 @@
             
             <br/>
             <input type="hidden" name="classe" value="AlunoLogica" />
-            <input type="hidden" name="metodo" value="incluir" />
+            <input type="hidden" name="metodo" value="inserir" />
             <input type="submit" value="Cadastrar" name="Cadastrar" />
         </form >
         
