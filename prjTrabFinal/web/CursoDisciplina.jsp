@@ -37,6 +37,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/table.css">
+         <link rel="stylesheet" type="text/css" href="css/layout.css">
         <script src="query/jquery-2.1.1.js"></script>      
         <script src="query/table.js"></script>
         <jsp:include page="verifica_login.jsp"/>        
@@ -59,6 +60,7 @@
     </head>
     <body>
         <h1>Curso</h1>
+        <hr>
         <c:choose>
             <c:when test='${rs.rowCount>0}'>
                 <c:forEach var="a" items="${rs.rows}">                    

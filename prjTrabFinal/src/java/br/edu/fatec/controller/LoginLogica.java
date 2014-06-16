@@ -80,7 +80,8 @@ public class LoginLogica extends AbstractLogica {
                 }
             }else{                
                 try {
-                    JOptionPane.showMessageDialog(null, "Login/Senha incrorreto.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    //JOptionPane.showMessageDialog(null, "Login/Senha incrorreto.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    req.setAttribute("erroLog", "Login/Senha incrorreto.");
                     RequestDispatcher rd =
                             req.getRequestDispatcher("Login.jsp");
                     rd.forward(req, resp);

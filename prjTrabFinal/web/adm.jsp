@@ -8,6 +8,7 @@
     <tr>
         <td>Menu</td>
     </tr>
+    
     <tr>
         <td><a href="AlunoConsulta.jsp">Consultar Alunos</a></td>
         <td><a href="CursoConsulta.jsp">Controle de Curso</a></td>

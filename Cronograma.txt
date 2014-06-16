@@ -34,10 +34,10 @@ FEITO +Criar script para formatar, data, cpf, rg;
 FEITO +Aplicar as funcoes básicas a outras tabelas:, Disciplina, Fiz pouca parte do login: Dao, e JSPs(Falta Consulta e alterar), falta fazer a Logica
 ********Domingo
 FEITO +Aplicar as funcoes básicas a outras tabelas:Aluno(Alerar prorpia  senha e foto, ultima coisa), Curso(fazer depois de Disciplina), Login(Fazer consultar primeiro, Alterar, Incluir,aplicar cripto);
-+Criar o controle de faltas e notas da Disciplina por aluno: Selecionar curso, disciplina, ano, semestre, clica em ok e aparece todos os alunos
-+Criar o menu para cada perfil.
-+Fazer a parte do login funcionar: Redirecionamento, Limitar acesso as paginas para determinados usuários, etc
-+Add na tela de CursoConsulta -> Disciplinas, vai para tela CursoDisciplina.jsp?id=x
+FEITO +Criar o controle de faltas e notas da Disciplina por aluno: Selecionar curso, disciplina, ano, semestre, clica em ok e aparece todos os alunos
+FEITO +Criar o menu para cada perfil.
+FEITO +Fazer a parte do login funcionar: Redirecionamento, Limitar acesso as paginas para determinados usuários, etc
+FEITO +Add na tela de CursoConsulta -> Disciplinas, vai para tela CursoDisciplina.jsp?id=x
 ##Dica Login -> 
 	FEITO -Ta tela de consulta: Mais simples, porem, vai atrelar mais de uma tabela(tbPerfil), no campo de pesquisa, quando o ADM, selecionar Perfil, irá desaparecer
 	o campor text e aparecer a combo de perfil, que será carregada via JSTL.
@@ -97,4 +97,6 @@ END;
 	
 #Dimas
 Falta a tela de pedido: mais chata
+
+ IdPedido (E)  IdCliente (E)  IdVendedor        Status        DtPedido        DtPagto 
 
