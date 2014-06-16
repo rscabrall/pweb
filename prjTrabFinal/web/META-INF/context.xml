@@ -3,5 +3,5 @@
     <Resource name="jdbc/RAM_Con" auth="Container"
           type="javax.sql.DataSource" driverClassName="net.sourceforge.jtds.jdbc.Driver"
           url="jdbc:jtds:sqlserver://localhost:1433;databaseName=trabPWeb"
-          username="pweb" password="pweb123" maxActive="20" maxIdle="10" maxWait="-1"/>
+          username="pweb" password="pweb123" maxActive="100" maxIdle="30" maxWait="10000"/>
 </Context>

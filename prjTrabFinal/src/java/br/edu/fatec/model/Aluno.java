@@ -21,6 +21,7 @@ public class Aluno {
     private String Nome;
     private String Endereco;
     private String dtNasc;
+    private Login login;
 
     public Aluno(int IdCurso, String Nome) {
         this.IdCurso = IdCurso;
@@ -91,4 +92,13 @@ public class Aluno {
         this.dtNasc = dtNasc;
     }
 
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    
 }

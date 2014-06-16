@@ -14,7 +14,9 @@ public class Login {
     private int IdLogin;
     private String Login;
     private String Senha;
-
+    private int IdPerfil; //Estava sem tempo e foi a última coisa que fiz
+    private Perfil perfil;
+    
 //  private Perfil perfil;
     public Login(String Login, String Senha) {
         this.Login = Login;
@@ -44,6 +46,23 @@ public class Login {
     public void setSenha(String Senha) {
         this.Senha = Senha;
     }
+
+    public int getIdPerfil() {
+        return IdPerfil;
+    }
+
+    public void setIdPerfil(int IdPerfil) {
+        this.IdPerfil = IdPerfil;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    
     
     
 }

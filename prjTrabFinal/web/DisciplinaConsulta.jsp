@@ -1,6 +1,6 @@
 <%-- 
-    Document   : AlunoConsulta
-    Created on : 27/05/2014, 08:36:50
+    Document   : DisciplinaConsulta
+    Created on : 14/06/2014, 21:30:38
     Author     : Rafael
 --%>
 
@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/table.css">
         <script src="query/jquery-2.1.1.js"></script>      
-        <script src="query/table.js"></script>        
+        <script src="query/table.js"></script>
         <script>                       
             function envia(){
                                 
@@ -31,13 +31,11 @@
             }
             
             function confirma(id){
-                if (confirm("Comfirma a exclusão do Aluno cujo Id: " + id + " ?")) {
-                    var campo = 'Id'; 
-                    //window.alert(campo);
+                if (confirm("Comfirma a exclusão da Disciplina: "+id+"?")) {                    
                     var valor = id;
-                    var classe = "AlunoLogica";
+                    var classe = "DisciplinaLogica";
                     var metod = "excluir";
-                    $.get('Controller', {Id:campo, valor:valor, classe:classe , metodo:metod},
+                    $.get('Controller', {IdDisciplina:valor, classe:classe , metodo:metod},
                     function(responseText){
                         $('#result').html(responseText);
                     } );
@@ -49,23 +47,24 @@
 window.onload=function(){tableHighlightRow();}
             
         </script>        
-        <title>Aluno - Consultar</title>
+        
+        <title>Disciplina - Consulta</title>
         <jsp:include page="verifica_login.jsp"/>
-        <jsp:include page="bloqueio_secretaria.jsp"/>        
+        <jsp:include page="bloqueio_secretaria.jsp"/>
         <jsp:include page="${sessionScope.menu}"/>
-    </head>                       
-            <select id="campo">
-                <option>Id</option>
-                <option>Nome</option>
-                <option>RG</option>
-                <option>CPF</option>
+    </head>
+    <body>
+        <select id="campo">
+                <option>IdDisciplina</option>
+                <option>Nome</option>                
             </select>
             
             <input type="text" id="valor" />
-            <input type="hidden" id="classe" value="AlunoLogica" />
+            <input type="hidden" id="classe" value="DisciplinaLogica" />
             <input type="hidden" id="metodo" value="consultar" />            
             <input type="button" value="Consultar" name="Consultar" onclick="javascript:envia()" />
-            <!--<a href="./AlunoCadastro.jsp.jsp">Adicionar Aluno</a>-->
+            <a href="./DisciplinaCadastro.jsp">Adicionar Disciplina</a>
+                    
         <br>
          <div id="result">
          </div>

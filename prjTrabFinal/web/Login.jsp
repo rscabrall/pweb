@@ -14,7 +14,7 @@
     <body>
         <h1>Sistema de Matrícula - Login</h1>
         <form method="POST" action="Controller">
-        <table >
+        <table>
             <tbody>
                 <tr>
                     <td>Login: </td>
@@ -23,12 +23,14 @@
                 
                 <tr>
                     <td>Senha: </td>
-                    <td><input type="text" name="Senha" value="" /></td>
+                    <td><input type="password" name="Senha" value="" /></td>
                 </tr>
                   
             </tbody>
         </table>
-<br/>
+        <br/>
+        <input type="hidden" name="classe" value="LoginLogica" />
+        <input type="hidden" name="metodo" value="entrar" />
         <input type="submit" value="Entrar" name="Entrar" />
         </form>
     </body>

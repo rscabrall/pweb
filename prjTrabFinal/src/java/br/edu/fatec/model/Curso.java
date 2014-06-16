@@ -12,5 +12,42 @@ package br.edu.fatec.model;
  */
 public class Curso {
     private int IdCurso;
+    private String Nome;
+    private String Modalidade;
+    private String Duracao;
+
+    public int getIdCurso() {
+        return IdCurso;
+    }
+
+    public void setIdCurso(int IdCurso) {
+        this.IdCurso = IdCurso;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+
+    public String getModalidade() {
+        return Modalidade;
+    }
+
+    public void setModalidade(String Modalidade) {
+        this.Modalidade = Modalidade;
+    }
+
+    public String getDuracao() {
+        return Duracao;
+    }
+
+    public void setDuracao(String Duracao) {
+        this.Duracao = Duracao;
+    }
+    
+    
     
 }

@@ -42,10 +42,11 @@ public class AlunoDAO extends AbstractDAO {
         ArrayList<Aluno> list = new ArrayList<Aluno>();
         Aluno aluno = null;
         int cont=0;
-        //System.out.println("###############################Passou no DAO");
+        System.out.println("###############################Passou no DAO");
         
                                     
         if( (campo == null || campo.equals("")) || (valor == null || valor.equals("")) ){
+            System.out.println("###############################Passou no DAO - Pega Tudo");
             sql = "SELECT *, FORMAT(DtNasc, 'dd/MM/yyyy') as DtNasc FROM tbAluno ORDER BY Nome, RA";
             ps = con.prepareStatement(sql);                
         }else{
@@ -67,19 +68,29 @@ public class AlunoDAO extends AbstractDAO {
         }        
 
         ResultSet rs = ps.executeQuery();
-
+        System.out.println("###############################Passou no DAO - Executou query");    
         while( rs.next() ) {
-            aluno = new Aluno (rs.getInt("idCurso"), 
+            aluno = new Aluno (rs.getInt("IdCurso"), 
                     rs.getString("Nome"));
+            //System.out.println("###############################Passou no DAO - Instanciou objeto");
             //Falta consultar o curso, mas isso é só um teste
             aluno.setId(rs.getInt("IdAluno"));
+           // System.out.println("###############################Passou no DAO - IdAluno:"+aluno.getId());
             aluno.setCPF(rs.getString("CPF"));
+            //System.out.println("###############################Passou no DAO - CPF:"+aluno.getCPF());
             aluno.setRA(rs.getString("RA"));
-            aluno.setRG(rs.getString("RG"));
+            //System.out.println("###############################Passou no DAO - RA:"+aluno.getRA());
+            aluno.setRG(rs.getString("RG"));            
+            //System.out.println("###############################Passou no DAO - RG:"+aluno.getRG());
             aluno.setEndereco(rs.getString("Endereco"));
-            //aluno.setDtNasc(String.valueOf(rs.getDate("DtNasc")));
+            //System.out.println("###############################Passou no DAO - Ender:"+aluno.getEndereco());
+            //aluno.setDtNasc(String.valueOf(rs.getDate("DtNasc")));                        
             aluno.setDtNasc( sdf.format( rs.getDate("DtNasc") )) ;
+            //System.out.println("###############################Passou no DAO - Data:"+aluno.getDtNasc());
+            LoginDAO log = new LoginDAO();
+            aluno.setLogin(log.pegaLogin(rs.getInt("IdLogin")) );
             list.add(aluno);
+            System.out.println("###############################Passou no DAO - Setou atributos");
         }
         return list;
             
@@ -114,6 +125,42 @@ public class AlunoDAO extends AbstractDAO {
         } catch (ParseException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void inserirPreCad(String ra, int curso ) throws SQLException{
+        try {
+            PreparedStatement ps = null;
+            Connection con = super.getCon();
+            int cont=0;
+            java.util.Date date1;
+            java.sql.Date date2 = null;
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            date1 = format.parse("01/01/1900");
+            java.sql.Date dataBanco = new java.sql.Date(date1.getTime());
+            String sql = "INSERT INTO tbAluno(RA, DtNasc, IdCurso, IdLogin) VALUES( ?, ?, (SELECT IdLogin FROM tbLogin WHERE Login=?) )";
+            System.out.println("###############################DAO -> Inserir PreCad Antes ");
+            ps = con.prepareStatement(sql);
+            ps.setString(++cont,  ra );
+            ps.setInt(++cont, curso);
+            ps.setString(++cont,  ra );
+            ps.execute();
+            System.out.println("###############################DAO -> Inserir PreCad depois ");
+        } catch (ParseException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void atrelarLogin(String ra ) throws SQLException{
+        PreparedStatement ps = null;
+        Connection con = super.getCon();
+        int cont=0;
+        String sql = "UPDATE tbAluno SET IdLogin=(SELECT IdLogin FROM tbLogin WHERE Login=?) WHERE RA=?";
+        System.out.println("###############################DAO -> Atrelar Login ao Aluno já existente Antes ");
+        ps = con.prepareStatement(sql);
+        ps.setString(++cont,  ra );        
+        ps.setString(++cont,  ra );
+        ps.execute();
+        System.out.println("###############################DAO -> Atrelar Login ao Aluno já existente Depois ");
     }
     
     public void alterar(Aluno alu) throws SQLException{
@@ -165,6 +212,50 @@ public class AlunoDAO extends AbstractDAO {
                
         //System.out.println("###############################Passou no DAO");        
     }
+    public boolean verifica(String id){
+        try {
+            PreparedStatement ps = null;
+            Connection con = super.getCon();
+            int cont=0;
+            String sql = "SELECT RA FROM tbAluno WHERE RA=?";
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(++cont, id);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next() == true)
+                return true;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public Aluno pegaID(int id){
+        Aluno alu=null;
+        try {
+            PreparedStatement ps = null;
+            Connection con = super.getCon();
+            int cont=0;
+            String sql = "SELECT IdAluno, IdCurso FROM tbAluno WHERE IdLogin=?";
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(++cont, id);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                alu = new Aluno(rs.getInt("IdCurso"), "");
+                alu.setId(rs.getInt("IdAluno"));
+            }
+                
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return alu;
+    }
+    
 }
             
     

@@ -31,10 +31,70 @@ FEITO +Separar em arquivos diferentes, todos os códigos, javascript e css, padr
 FEITO +Criar script para formatar, data, cpf, rg;
 -Aplicar as funcoes básicas a outras tabelas: Disciplina, Curso(fazer depois de Disciplina) Login, Perfil(Não sei se vai precisar);
 ********Sab
-+Aplicar as funcoes básicas a outras tabelas:Aluno(foto, ultima coisa), Disciplina, Curso(fazer depois de Disciplina) Login(aplicar cripto), Perfil(Não sei se vai precisar)
+FEITO +Aplicar as funcoes básicas a outras tabelas:, Disciplina, Fiz pouca parte do login: Dao, e JSPs(Falta Consulta e alterar), falta fazer a Logica
+********Domingo
+FEITO +Aplicar as funcoes básicas a outras tabelas:Aluno(Alerar prorpia  senha e foto, ultima coisa), Curso(fazer depois de Disciplina), Login(Fazer consultar primeiro, Alterar, Incluir,aplicar cripto);
 +Criar o controle de faltas e notas da Disciplina por aluno: Selecionar curso, disciplina, ano, semestre, clica em ok e aparece todos os alunos
 +Criar o menu para cada perfil.
--Fazer a parte do login funcionar: Redirecionamento, Limitar acesso as paginas para determinados usuários, etc
-********Domingo
 +Fazer a parte do login funcionar: Redirecionamento, Limitar acesso as paginas para determinados usuários, etc
-Depois disso fazer o Aluno alterar a senha do proprio login na tela Aluno Cad.
++Add na tela de CursoConsulta -> Disciplinas, vai para tela CursoDisciplina.jsp?id=x
+##Dica Login -> 
+	FEITO -Ta tela de consulta: Mais simples, porem, vai atrelar mais de uma tabela(tbPerfil), no campo de pesquisa, quando o ADM, selecionar Perfil, irá desaparecer
+	o campor text e aparecer a combo de perfil, que será carregada via JSTL.
+	FEITO -Na tela de Alterar: Não carregar o campo senha, aplicar o esquema de senha de confirmação que tem na tela de AlunoCad/Alterar. E só dar UPDATE na senha
+	se ele for diferente de NULL;	
+	FEITO -Na tela de cadastro: (Está boa parte feita), verificar se o login já existe, quando for cadastrar, se o campo RA for != NULL, inserir na tabela tbAluno, RA, Curso e Senha Padrão
+	Criar uma trigger quando houver uma inclusão na tbAluno, para atrelar o aluno as disciplina que compoem o curso escolhido;
+
+	*TRIGGER:
+	
+	Use trabPWeb
+IF EXISTS (SELECT * FROM sys.triggers WHERE name='TG_atrelaAlunoDisc')
+    DROP TRIGGER TG_apagarCliente
+
+GO
+create trigger TG_atrelaAlunoDisc on tbAluno
+AFTER INSERT 
+AS
+BEGIN
+ 
+ DECLARE @newCurso int;
+ DECLARE @newAluno int;
+ 
+ set @newCurso = (SELECT IdCurso FROM Inserted)
+ set @newAluno = (SELECT IdAluno FROM Inserted)
+
+ DECLARE @id VARCHAR(50)
+
+DECLARE db_cursor CURSOR FOR  
+	SELECT IdDisciplina  
+	FROM tbCursoDisciplina 
+	WHERE tbCursoDisciplina.IdCurso=1;  
+
+OPEN db_cursor   
+FETCH NEXT FROM db_cursor  INTO @id
+WHILE @@FETCH_STATUS = 0   
+BEGIN   
+       INSERT INTO tbAlunoDisciplina(IdAluno, IdDisciplina) VALUES(@newAluno, @id); 
+	   FETCH NEXT FROM db_cursor  INTO @id
+END   
+
+CLOSE db_cursor   
+DEALLOCATE db_cursor 
+
+END;
+
+	
+##Dica Curso+Disciplina	
+	-Primeiro vem a tela de cadastro: depois de cadastrar, o usuário é redirecionado para outra tela CursoDisciplinas, que leva junto o objeto do Curso
+	-Na tela CursoDisciplinas: O cabeçalho terá algumas informações do curso e abaixo terá campos igual as telas de consulta: Uma combo com todas as Disciplinas,
+	e um botão de adicionar. Mais abaixo terá uma tabela com as disciplinas atreladas ao curso.
+	Nesta msm tela terá um link para alteração do curso.
+	-Quando o usuário clicar em add, essa ação resulta na inclusão da disciplina na tabela CursoDisciplina, que em seguida volta para a mesma tela, com o parametro
+	via GET, ?curso=x, que carregada a tabela novamente.
+
+
+	
+#Dimas
+Falta a tela de pedido: mais chata
+

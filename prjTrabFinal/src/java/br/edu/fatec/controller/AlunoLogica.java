@@ -8,6 +8,7 @@ package br.edu.fatec.controller;
 
 import br.edu.fatec.model.Aluno;
 import br.edu.fatec.model.AlunoDAO;
+import br.edu.fatec.model.LoginDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -31,12 +32,15 @@ public class AlunoLogica extends AbstractLogica{
         String metodo = req.getParameter("metodo");
         ArrayList<Aluno> list = new ArrayList<Aluno>();
         AlunoDAO dao = new AlunoDAO();
+        LoginDAO daoLogin = new LoginDAO();
         System.out.println("###################Logica -> Comeco");
         if( metodo.equals("consultar") ){
+            System.out.println("###################Logica -> Consulta");
             try {
                 String campo = req.getParameter("campo");
                 String valor = req.getParameter("valor");
                 list = dao.consultar(campo, valor);
+                System.out.println("###################Logica -> Consulta Pegou");
                 PrintWriter html;
                 int cont=0;
                 String css[] = {"white", "gray"};
@@ -165,11 +169,16 @@ public class AlunoLogica extends AbstractLogica{
                 }else{
                     System.out.println("###################Logica -> Alterar");
                     int id = Integer.parseInt(req.getParameter("Id"));
-                    String senha = req.getParameter("Senha");
+                    String senha = req.getParameter("Senha2");
                     
                     try {                        
                         alu.setId(id);
-                        dao.alterar(alu);                        
+                        dao.alterar(alu);
+                        if( !senha.equals("") ){
+                            System.out.println("###################Logica -> Alterar Senha");
+                            int idLog = Integer.parseInt(req.getParameter("IdLogin"));
+                            daoLogin.alterar(daoLogin.pegaLogin(idLog));                            
+                        }
                         rd.forward(req, resp);
                     } catch (SQLException ex) {
                         Logger.getLogger(AlunoLogica.class.getName()).log(Level.SEVERE, null, ex);                        

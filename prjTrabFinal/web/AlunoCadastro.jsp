@@ -18,7 +18,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>Aluno - Cadastro</title>
-        
+        <jsp:include page="verifica_login.jsp"/>
+        <jsp:include page="bloqueio_secretaria.jsp"/>
+        <jsp:include page="${sessionScope.menu}"/>
     </head>
     <body>
         <h1>Aluno - Cadastro </h1>

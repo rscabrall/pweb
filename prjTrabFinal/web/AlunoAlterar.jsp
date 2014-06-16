@@ -24,10 +24,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="query/mascaras.js"></script>
         <title>Aluno - Cadastro</title>
+        <jsp:include page="verifica_login.jsp"/>        
+        <jsp:include page="${sessionScope.menu}"/>
+        <jsp:include page="verifica_login.jsp"/>
     </head>
     <body>        
         
-        <h1>Aluno - Cadastro </h1>
+        <h1>Aluno - Alterar </h1>
         <c:choose>
             <c:when test='${rsAluno.rowCount>0}'>
                 <c:forEach var="a" items="${rsAluno.rows}">
@@ -92,9 +95,13 @@
                             </tbody>
                         </table>
                         <br/>
+                        <input type="hidden" name="IdLogin" value="${a.IdLogin}" />
                         <input type="hidden" name="classe" value="AlunoLogica" />
                         <input type="hidden" name="metodo" value="alterar" />
-                        <input type="submit" value="Alterar" name="Alterar" />
+                        <c:if test="${sessionScope.perfil == 2}">
+                            <input type="submit" value="Alterar" name="Alterar" />
+                        </c:if>
+                        
                     </form >
                     
                 </c:forEach>
